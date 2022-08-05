@@ -1,0 +1,127 @@
+body {
+  background: linear-gradient(to right, #00c9ff, #92fe9d);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.phonebook_box {
+  margin: 0 auto;
+  padding: 0;
+  width: 560px;
+  min-height: max-content;
+  background-color: rgba(255, 255, 255, 0.726);
+  border-radius: 15px;
+  box-shadow: 2px 2px 5px rgb(37, 211, 196);
+  padding: 10px;
+  overflow: hidden;
+  color: #000;
+  border: none;
+  opacity: 0.9;
+}
+
+.phonebook__form {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  border: 1px solid rgba(0, 0, 0, 0.404);
+  width: 500px;
+  padding: 20px;
+  border-radius: 15px;
+}
+
+.phonebook_name {
+  margin-bottom: 5px;
+  font-size: 20px;
+}
+
+.phonebook__input {
+  margin-bottom: 25px;
+  width: auto;
+  max-width: 200px;
+  border-radius: 5px;
+  outline: none;
+  font-size: 15px;
+  padding: 5px;
+  background-color: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.404);
+  outline: none;
+}
+
+.phonebook__input:hover,
+.phonebook__input:focus {
+  box-shadow: 0 0 3px #000;
+}
+
+.phonebook_btn {
+  cursor: pointer;
+  width: 150px;
+  padding: 5px;
+  margin: 0;
+  font-size: 15px;
+  font-weight: 500;
+  border: 1px solid rgb(187, 187, 187);
+  border-radius: 5px;
+  height: 35px;
+  background-color: #00c9ff;
+}
+
+.phonebook_btn:hover {
+  box-shadow: 0 0 5px #000;
+  background-color: transparent;
+  border-color: #ccc;
+  color: #fff;
+  font-size: 17px;
+  letter-spacing: 0.12em;
+  text-shadow: 0px 1px 0 rgb(0, 0, 0), 0px -1px 0 rgb(0, 0, 0),
+    1px 0px 0 rgb(0, 0, 0), -1px 0px 0 rgb(0, 0, 0), 1px 1px 0 rgb(0, 0, 0),
+    1px -1px 0 rgb(0, 0, 0), -1px 1px 0 rgb(0, 0, 0), -1px -1px 0 rgb(0, 0, 0);
+}
+
+/* ------------------CONTACTS--------------------- */
+
+.phonebook__contacts {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 540px;
+  height: 100%;
+  overflow: hidden;
+  padding-bottom: 30px;
+}
+
+.phonebook__list {
+  list-style: '👨‍💼';
+  list-style-position: inside;
+  margin: 0;
+}
+
+.phonebook__item {
+  font-size: 25px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.phonebook__item::before {
+  content: '👨‍💼';
+  position: absolute;
+  max-width: 10px;
+  height: 10px;
+  /* margin-right: 25px; */
+  margin-left: -35px;
+}
+
+.phonebook__item:not(:last-child) {
+  margin-bottom: 15px;
+}
+
+.phonebook__item-text {
+  float: left;
+  text-align: left;
+  margin-right: 20px;
+}
+
+.phonebook_name__filter {
+  margin-bottom: 10px;
+}
