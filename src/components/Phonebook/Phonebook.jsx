@@ -8,31 +8,48 @@ import { ContactList } from './ContactList/ContactList';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 export class Phonebook extends Component {
   state = {
-    contacts: [
-      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-    ],
+    // contacts:
+    contacts: JSON.parse(localStorage.getItem('phonebook')) || [],
     filter: '',
+    LOCALSTORAGE_KEY: 'phonebook',
   };
 
+  // submit and add to local storage
   handleSubmit = newContact => {
-    console.log(newContact);
+    // console.log(newContact);
     const { contacts } = this.state;
     const { name, number } = newContact;
     const contact = contacts.find(
       contact => contact.name.toLowerCase() === name.toLowerCase()
     );
+
     if (contact) {
       this.showMessage(`Contact ${name} already exists`);
       return;
     }
+    const newContacts = [...contacts, { name, number, id: nanoid() }];
+    this.setState({ contacts: newContacts });
+    this.saveToLocalStorage(newContacts);
     return this.setState({
-      contacts: [...contacts, { name: name, number: number, id: nanoid() }],
+      contacts: this.parseContactsFromLocalStorage(),
     });
   };
 
+  // parse contacts from local storage
+  parseContactsFromLocalStorage = () => {
+    const parseContactsFromLocalStorage = JSON.parse(
+      localStorage.getItem('phonebook')
+    );
+    return parseContactsFromLocalStorage;
+  };
+
+  // save to local storage
+  saveToLocalStorage = contacts => {
+    console.log('saveToLocalStorage');
+    localStorage.setItem(this.state.LOCALSTORAGE_KEY, JSON.stringify(contacts));
+  };
+
+  // change filter by name
   handleChangeFilterByName = event => {
     const { name, value } = event.target;
     this.setState({
@@ -40,6 +57,7 @@ export class Phonebook extends Component {
     });
   };
 
+  // get filtered contacts
   getFIlteredContacts = () => {
     const { contacts, filter } = this.state;
     if (!filter) {
@@ -50,16 +68,32 @@ export class Phonebook extends Component {
     );
   };
 
+  // show message(error)
   showMessage(message) {
     Notify.warning(message);
   }
 
+  //delete contact from local storage
+  // onDeleteContactLocal = contact => {
+  //   const { contacts } = this.state;
+  //   // delete contact from local storage
+  //   this.setState({
+  //     contacts: contacts.filter(c => {
+  //       console.log(c);
+  //       return c.id !== contact.id;
+  //     }),
+  //   });
+
+  // }
+
+  // delete contact
   onDeleteContact = contact => {
     const { contacts } = this.state;
-    this.setState({
-      contacts: contacts.filter(c => {
-        return c.id !== contact.id;
-      }),
+    const newContacts = contacts.filter(c => c.id !== contact.id);
+    this.setState({ contacts: newContacts });
+    this.saveToLocalStorage(newContacts);
+    return this.setState({
+      contacts: this.parseContactsFromLocalStorage(),
     });
   };
 
